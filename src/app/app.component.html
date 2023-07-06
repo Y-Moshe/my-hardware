@@ -1,6 +1,9 @@
-<pre>
-  {{ cpuData() | json }}
-</pre>
-<pre>
-  {{ cpuStatus() | json }}
-</pre>
+<div>
+  <app-header />
+
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+
+  <app-footer />
+</div>
