@@ -1,7 +1,15 @@
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { importProvidersFrom } from '@angular/core';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { provideRouter } from '@angular/router';
+import { ElectronService } from 'ngx-electron';
 
-import { AppModule } from './app/app.module';
+import { AppComponent } from './app/app.component';
+import { appRoutes } from './app/app-routes';
 
-
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.error(err));
+bootstrapApplication(AppComponent, {
+  providers: [
+    ElectronService,
+    provideRouter(appRoutes),
+    // importProvidersFrom(),
+  ],
+}).catch((err) => console.error(err));

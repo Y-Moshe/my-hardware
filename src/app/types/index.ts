@@ -1,0 +1,1 @@
+export { CpuStatus } from './systeminformation';
