@@ -15,8 +15,9 @@ function createWindow() {
     },
   });
 
-  const { outputPath } = projects["my-hardware"].architect.build.options;
-  win.loadFile(`${outputPath}/index.html`);
+  // const { outputPath } = projects["my-hardware"].architect.build.options;
+  // win.loadFile(`${outputPath}/index.html`);
+  win.loadURL('http://localhost:4200')
 }
 
 app.on("window-all-closed", () => {
