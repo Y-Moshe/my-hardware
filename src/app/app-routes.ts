@@ -1,15 +1,19 @@
-import { Routes } from '@angular/router';
+import { Routes } from '@angular/router'
 
-import { GeneralPageComponent } from './pages/general-page/general-page.component';
-import { CpuPageComponent } from './pages/cpu-page/cpu-page.component';
-import { RamPageComponent } from './pages/ram-page/ram-page.component';
-import { DiskPageComponent } from './pages/disk-page/disk-page.component';
+import { GeneralPageComponent } from './pages/general-page/general-page.component'
+import { CpuPageComponent } from './pages/cpu-page/cpu-page.component'
+import { RamPageComponent } from './pages/ram-page/ram-page.component'
+import { DiskPageComponent } from './pages/disk-page/disk-page.component'
 
 export const appRoutes: Routes = [
   {
     path: '',
-    component: GeneralPageComponent,
+    redirectTo: 'general',
     pathMatch: 'full',
+  },
+  {
+    path: 'general',
+    component: GeneralPageComponent,
   },
   {
     path: 'cpu',
@@ -23,4 +27,4 @@ export const appRoutes: Routes = [
     path: 'disk',
     component: DiskPageComponent,
   },
-];
+]
