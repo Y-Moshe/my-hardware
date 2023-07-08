@@ -3,6 +3,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import './app/styles/main';
+
 html,
 body {
   height: 100%;

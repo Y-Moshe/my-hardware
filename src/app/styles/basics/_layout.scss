@@ -1,0 +1,40 @@
+$layoutPadding: 40px;
+
+@mixin changeLayout($maxWidth) {
+  grid-template-columns:
+    minmax($layoutPadding, 1fr)
+    minmax(auto, $maxWidth)
+    minmax($layoutPadding, 1fr);
+}
+
+.main-layout {
+  display: grid;
+  grid-template-columns: $layoutPadding 1fr $layoutPadding;
+
+  > * {
+    grid-column: 2;
+  }
+
+  > * .full {
+    grid-column: 1 / -1;
+  }
+
+  @screen md {
+    @include changeLayout(theme('screens.md'));
+  }
+  @screen lg {
+    @include changeLayout(theme('screens.lg'));
+  }
+  @screen xl {
+    @include changeLayout(theme('screens.xl'));
+  }
+  @screen 2xl {
+    @include changeLayout(theme('screens.2xl'));
+  }
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+// .main-view {}

@@ -1,0 +1,27 @@
+.main-header {
+  @apply bg-gradient-to-r from-cyan-500 to-blue-500 dark:from-gray-800 dark:to-gray-400;
+}
+
+.main-nav {
+  @apply w-full mx-auto p-4;
+  @apply flex items-center justify-between;
+
+  & .menu-btn {
+    @apply inline-flex md:hidden items-center justify-center p-2 rounded-lg;
+    @apply text-sm text-gray-500 dark:text-gray-400;
+    @apply hover:bg-gray-100 dark:hover:bg-gray-700;
+  }
+}
+
+.brand {
+  @apply flex gap-2 items-center;
+
+  & ng-icon {
+    @apply text-3xl text-orange-300 dark:text-cyan-500;
+    @apply transition duration-300;
+  }
+
+  &:hover ng-icon {
+    @apply text-green-300 dark:text-orange-300;
+  }
+}
