@@ -1,1 +1,1 @@
-export { CpuStatus } from './systeminformation';
+export { CpuStatus, DisksStatus } from './systeminformation'
