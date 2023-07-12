@@ -1,0 +1,18 @@
+<form class="service-settings" [formGroup]="form" (ngSubmit)="handleSubmit()">
+  <label for="refreshRate">Refresh Rate</label>
+  <input type="number" formControlName="refreshRate" id="refreshRate" />
+
+  <label for="maxRecords">Max Records</label>
+  <input type="number" formControlName="maxRecords" id="maxRecords" />
+
+  <label for="randomizeCpuTemperature">Randomize Cpu Temperature</label>
+  <input
+    type="checkbox"
+    formControlName="randomizeCpuTemperature"
+    id="randomizeCpuTemperature" />
+
+  <button type="submit">Apply Settings</button>
+  <button type="button" (click)="handleStopService()">
+    {{ toggledLabel() }}
+  </button>
+</form>

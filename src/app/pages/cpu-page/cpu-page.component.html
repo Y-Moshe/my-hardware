@@ -1,30 +1,10 @@
 <div>
-  <form
-    class="service-control"
-    [formGroup]="serviceCtrlForm"
-    (ngSubmit)="handleSubmit()">
-    <label for="refreshRate">Refresh Rate</label>
-    <input type="number" formControlName="refreshRate" id="refreshRate" />
-
-    <label for="maxRecords">Max Records</label>
-    <input type="number" formControlName="maxRecords" id="maxRecords" />
-
-    <label for="randomizeCpuTemperature">Randomize Cpu Temperature</label>
-    <input
-      type="checkbox"
-      formControlName="randomizeCpuTemperature"
-      id="randomizeCpuTemperature" />
-
-    <button type="submit">Apply Settings</button>
-    <button type="button" (click)="handleStopService()">Stop service</button>
-  </form>
-
-  <h1>({{ isServiceRunning() }}) CPU: {{ cpuLabel() }}</h1>
+  <h1>CPU: {{ cpuLabel() }}</h1>
   <app-cpu-utilization-chart
     [cpuLoad]="cpuStatus()?.load"
     [cpuTemperature]="cpuStatus()?.temperature"
-    [maxRecords]="maxRecords"
-    [randomizeCpuTemperature]="randomizeCpuTemperature" />
+    [maxRecords]="hwServiceSettings().maxRecords"
+    [randomizeCpuTemperature]="hwServiceSettings().randomizeCpuTemperature" />
 
   <div class="cpu-info">
     <p>Utilization: {{ cpuCurrentLoad() }}%</p>

@@ -2,7 +2,7 @@ import { Injectable, signal } from '@angular/core'
 import { ElectronService } from 'ngx-electron'
 
 import { Systeminformation as SI } from 'systeminformation'
-import { CpuStatus, DisksStatus } from '@/types'
+import { CpuStatus, DisksStatus, HardwareServiceSettings } from '@/types'
 
 type HardwareStatus = {
   cpuStatus: CpuStatus
@@ -18,12 +18,21 @@ export class HardwareService {
   memoryStatus = signal<SI.MemData | null>(null)
   disksStatus = signal<DisksStatus | null>(null)
 
+  settings = signal<HardwareServiceSettings>({
+    refreshRate: 1000,
+    maxRecords: 60,
+    randomizeCpuTemperature: false,
+  })
   isServiceRunning = signal<boolean>(false)
   intervalId: NodeJS.Timer | null = null
 
   constructor(private readonly _electronService: ElectronService) {}
 
-  public startService(refreshRate: number): void {
+  public setSettings(settings: HardwareServiceSettings) {
+    this.settings.set(settings)
+  }
+
+  public startService(): void {
     if (this.isServiceRunning()) return
 
     this.intervalId = setInterval(async () => {
@@ -32,7 +41,7 @@ export class HardwareService {
       this.cpuStatus.set(results.cpuStatus)
       this.memoryStatus.set(results.memoryStatus)
       this.disksStatus.set(results.disksStatus)
-    }, refreshRate)
+    }, this.settings().refreshRate)
 
     this.isServiceRunning.set(true)
   }
@@ -45,9 +54,9 @@ export class HardwareService {
     }
   }
 
-  public restartService(refreshRate: number): void {
+  public restartService(): void {
     this.stopService()
-    this.startService(refreshRate)
+    this.startService()
   }
 
   public getCpuData(): Promise<SI.CpuData> {
