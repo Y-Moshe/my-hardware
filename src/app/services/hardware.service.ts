@@ -18,11 +18,14 @@ export class HardwareService {
   memoryStatus = signal<SI.MemData | null>(null)
   disksStatus = signal<DisksStatus | null>(null)
 
+  isServiceRunning = signal<boolean>(false)
   intervalId: NodeJS.Timer | null = null
 
   constructor(private readonly _electronService: ElectronService) {}
 
   public startService(refreshRate: number): void {
+    if (this.isServiceRunning()) return
+
     this.intervalId = setInterval(async () => {
       const results = await this._getHardwareStatus()
 
@@ -30,12 +33,15 @@ export class HardwareService {
       this.memoryStatus.set(results.memoryStatus)
       this.disksStatus.set(results.disksStatus)
     }, refreshRate)
+
+    this.isServiceRunning.set(true)
   }
 
   public stopService(): void {
-    if (this.intervalId) {
-      clearInterval(this.intervalId)
+    if (this.isServiceRunning()) {
+      this.intervalId && clearInterval(this.intervalId)
       this.intervalId = null
+      this.isServiceRunning.set(false)
     }
   }
 
