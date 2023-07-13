@@ -81,7 +81,7 @@ export class HardwareService {
     return this._electronService.ipcRenderer.invoke('getDisksLayout')
   }
 
-  public getMemoryLayout(): Promise<SI.MemLayoutData> {
+  public getMemoryLayout(): Promise<SI.MemLayoutData[]> {
     return this._electronService.ipcRenderer.invoke('getMemoryLayout')
   }
 

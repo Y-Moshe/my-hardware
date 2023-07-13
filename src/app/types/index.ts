@@ -17,6 +17,12 @@ export type CpuStatus = {
 export type MemStatus = HardwareStatus['memCurrentLoad']
 export type DiskStatus = Pick<HardwareStatus, 'disksIO' | 'fsSize'>
 
+export interface CpuCoreStatus {
+  load: number
+  speed: number
+  temperature: number
+}
+
 export interface HardwareServiceSettings {
   refreshRate: number
   maxRecords: number
