@@ -57,10 +57,21 @@ export class CpuUtilizationChartComponent implements OnChanges {
     },
     scales: {
       y: {
+        title: {
+          color: 'white',
+        },
         position: 'right',
         min: 0,
         max: 100,
         ticks: {
+          font: {
+            family: 'Roboto',
+            size: 16,
+          },
+          color: (ctx) =>
+            ctx.tick.value === 100 ? colors.sky['300'] : colors.sky['100'],
+          textStrokeColor: colors.sky['400'],
+          textStrokeWidth: 1,
           stepSize: 25,
           callback: (value) => (value ? value + '%' : ''),
         },
@@ -70,8 +81,27 @@ export class CpuUtilizationChartComponent implements OnChanges {
         min: 0,
         suggestedMax: 100,
         ticks: {
+          font: {
+            family: 'Roboto',
+            size: 16,
+          },
           stepSize: 25,
+          textStrokeWidth: 1,
           color(ctx) {
+            switch (ctx.tick.value) {
+              case 0:
+                return colors.slate[100]
+              case 25:
+                return colors.green[200]
+              case 50:
+                return colors.yellow[200]
+              case 75:
+                return colors.orange[200]
+              default:
+                return colors.red[500]
+            }
+          },
+          textStrokeColor(ctx) {
             switch (ctx.tick.value) {
               case 0:
                 return colors.slate[500]
@@ -95,6 +125,15 @@ export class CpuUtilizationChartComponent implements OnChanges {
       },
     },
     plugins: {
+      legend: {
+        labels: {
+          font: {
+            family: 'Roboto',
+            size: 16,
+          },
+          color: 'white',
+        },
+      },
       tooltip: {
         callbacks: {
           label({ dataset, datasetIndex, formattedValue }) {
