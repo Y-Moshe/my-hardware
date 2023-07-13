@@ -2,21 +2,21 @@ import { Injectable, signal } from '@angular/core'
 import { ElectronService } from 'ngx-electron'
 
 import { Systeminformation as SI } from 'systeminformation'
-import { CpuStatus, DisksStatus, HardwareServiceSettings } from '@/types'
-
-type HardwareStatus = {
-  cpuStatus: CpuStatus
-  disksStatus: DisksStatus
-  memoryStatus: SI.MemData
-}
+import {
+  HardwareStatus,
+  HardwareServiceSettings,
+  MemStatus,
+  DiskStatus,
+  CpuStatus,
+} from '@/types'
 
 @Injectable({
   providedIn: 'root',
 })
 export class HardwareService {
   cpuStatus = signal<CpuStatus | null>(null)
-  memoryStatus = signal<SI.MemData | null>(null)
-  disksStatus = signal<DisksStatus | null>(null)
+  memStatus = signal<MemStatus | null>(null)
+  diskStatus = signal<DiskStatus | null>(null)
 
   settings = signal<HardwareServiceSettings>({
     refreshRate: 1000,
@@ -36,11 +36,25 @@ export class HardwareService {
     if (this.isServiceRunning()) return
 
     this.intervalId = setInterval(async () => {
-      const results = await this._getHardwareStatus()
+      const {
+        cpuCurrentLoad,
+        cpuCurrentSpeed,
+        cpuTemperature,
+        memCurrentLoad,
+        disksIO,
+        fsSize,
+      } = await this._getHardwareStatus()
 
-      this.cpuStatus.set(results.cpuStatus)
-      this.memoryStatus.set(results.memoryStatus)
-      this.disksStatus.set(results.disksStatus)
+      this.cpuStatus.set({
+        load: cpuCurrentLoad,
+        speed: cpuCurrentSpeed,
+        temperature: cpuTemperature,
+      })
+      this.memStatus.set(memCurrentLoad)
+      this.diskStatus.set({
+        disksIO,
+        fsSize,
+      })
     }, this.settings().refreshRate)
 
     this.isServiceRunning.set(true)
@@ -71,17 +85,7 @@ export class HardwareService {
     return this._electronService.ipcRenderer.invoke('getMemoryLayout')
   }
 
-  private async _getHardwareStatus(): Promise<HardwareStatus> {
-    const [cpuStatus, disksStatus, memoryStatus] = await Promise.all([
-      this._electronService.ipcRenderer.invoke('getCpuStatus'),
-      this._electronService.ipcRenderer.invoke('getDisksStatus'),
-      this._electronService.ipcRenderer.invoke('getMemoryStatus'),
-    ])
-
-    return {
-      cpuStatus,
-      disksStatus,
-      memoryStatus,
-    }
+  private _getHardwareStatus(): Promise<HardwareStatus> {
+    return this._electronService.ipcRenderer.invoke('getHardwareStatus')
   }
 }

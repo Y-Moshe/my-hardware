@@ -66,36 +66,32 @@ app.whenReady().then(() => {
 // ----------------------------------------------------------------
 
 ipcMain.handle('getCpuData', () => si.cpu())
+ipcMain.handle('getMemoryLayout', () => si.memLayout())
+ipcMain.handle('getDisksLayout', () => si.diskLayout())
 
-ipcMain.handle('getCpuStatus', async () => {
-  const [cpuTemperature, cpuCurrentSpeed, currentLoad] = await Promise.all([
+ipcMain.handle('getHardwareStatus', async () => {
+  const [
+    cpuTemperature,
+    cpuCurrentSpeed,
+    cpuCurrentLoad,
+    memCurrentLoad,
+    disksIO,
+    fsSize,
+  ] = await Promise.all([
     si.cpuTemperature(),
     si.cpuCurrentSpeed(),
     si.currentLoad(),
+    si.mem(),
+    si.disksIO(),
+    si.fsSize(),
   ])
 
   return {
-    temperature: cpuTemperature,
-    speed: cpuCurrentSpeed,
-    load: currentLoad,
-  }
-})
-
-// ----------------------------------------------------------------
-
-ipcMain.handle('getDisksLayout', () => si.diskLayout())
-
-ipcMain.handle('getDisksStatus', async () => {
-  const [disksIO, fsSize] = await Promise.all([si.disksIO(), si.fsSize()])
-
-  return {
+    cpuTemperature,
+    cpuCurrentSpeed,
+    cpuCurrentLoad,
+    memCurrentLoad,
     disksIO,
-    disksUsage: fsSize,
+    fsSize,
   }
 })
-
-// ----------------------------------------------------------------
-
-ipcMain.handle('getMemoryLayout', () => si.memLayout())
-
-ipcMain.handle('getMemoryStatus', () => si.mem())
