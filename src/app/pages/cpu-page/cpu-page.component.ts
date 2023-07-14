@@ -4,13 +4,24 @@ import { Systeminformation as SI } from 'systeminformation'
 import 'chartjs-adapter-moment'
 
 import { HardwareService } from '@/services/hardware.service'
-import { CpuUtilizationChartComponent } from '@/components'
+import {
+  CpuCorePreviewComponent,
+  CpuUtilizationChartComponent,
+} from '@/components'
+import { CpuCoreStatus } from '@/types'
 
 @Component({
   selector: 'app-cpu-page',
   standalone: true,
-  imports: [CommonModule, CpuUtilizationChartComponent],
+  imports: [
+    CommonModule,
+    CpuUtilizationChartComponent,
+    CpuCorePreviewComponent,
+  ],
   templateUrl: './cpu-page.component.html',
+  host: {
+    class: 'main-layout full',
+  },
 })
 export class CpuPageComponent implements OnInit {
   cpuData = signal<SI.CpuData | null>(null)
@@ -23,6 +34,18 @@ export class CpuPageComponent implements OnInit {
   cpuCurrentLoad = computed(() =>
     this._hwService.cpuStatus()?.load.currentLoad.toFixed(2)
   )
+  cpuCoresStatus = computed<CpuCoreStatus[] | undefined>(() =>
+    this.cpuStatus()?.load.cpus.map((core, i) => {
+      const coreSpeed = this.cpuStatus()?.speed.cores[i]
+      const coreTemperature = this.cpuStatus()?.temperature.cores[i]
+
+      return {
+        load: +core.load.toFixed(2),
+        speed: coreSpeed || 0,
+        temperature: coreTemperature || 0,
+      }
+    })
+  )
 
   hwServiceSettings = computed(() => this._hwService.settings())
   private readonly _hwService = inject(HardwareService)
@@ -32,5 +55,9 @@ export class CpuPageComponent implements OnInit {
       .getCpuData()
       .then((data) => this.cpuData.set(data))
       .catch(console.log)
+  }
+
+  trackByCoreIndex(index: number, core: CpuCoreStatus) {
+    return index
   }
 }

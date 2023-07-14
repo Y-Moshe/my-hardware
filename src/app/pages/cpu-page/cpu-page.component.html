@@ -1,16 +1,50 @@
-<div>
-  <h1>CPU: {{ cpuLabel() }}</h1>
-  <app-cpu-utilization-chart
-    [cpuLoad]="cpuStatus()?.load"
-    [cpuTemperature]="cpuStatus()?.temperature"
-    [maxRecords]="hwServiceSettings().maxRecords"
-    [randomizeCpuTemperature]="hwServiceSettings().randomizeCpuTemperature" />
+<div class="main-layout full bg-cpu-page bg-no-repeat bg-cover">
+  <div class="cpu-page">
+    <table class="info-table">
+      <tbody>
+        <tr>
+          <td>CPU</td>
+          <td>{{ cpuLabel() }}</td>
+        </tr>
+        <tr>
+          <td>Utilization</td>
+          <td>{{ cpuCurrentLoad() }}%</td>
+        </tr>
+        <tr>
+          <td>Speed</td>
+          <td>{{ cpuStatus()?.speed?.avg }}GHz</td>
+        </tr>
+        <tr>
+          <td>Cores</td>
+          <td>{{ cpuData()?.cores }}</td>
+        </tr>
+        <tr>
+          <td>Physical Cores</td>
+          <td>{{ cpuData()?.physicalCores }}</td>
+        </tr>
+        <tr>
+          <td>Socket</td>
+          <td>{{ cpuData()?.socket }}</td>
+        </tr>
+      </tbody>
+    </table>
 
-  <div class="cpu-info">
-    <p>Utilization: {{ cpuCurrentLoad() }}%</p>
-    <p>Speed: {{ cpuStatus()?.speed?.avg }}GHz</p>
-    <p>Cores: {{ cpuData()?.cores }}</p>
-    <p>Physical Cores: {{ cpuData()?.physicalCores }}</p>
-    <p>Socket: {{ cpuData()?.socket }}</p>
+    <div class="border border-sky-400 backdrop-saturate-200 bg-white/20">
+      <app-cpu-utilization-chart
+        [cpuLoad]="cpuStatus()?.load"
+        [cpuTemperature]="cpuStatus()?.temperature"
+        [maxRecords]="hwServiceSettings().maxRecords"
+        [randomizeCpuTemperature]="
+          hwServiceSettings().randomizeCpuTemperature
+        " />
+    </div>
+
+    <section class="flex flex-wrap gap-8">
+      <app-cpu-core-preview
+        *ngFor="let core of cpuCoresStatus(); trackBy: trackByCoreIndex"
+        [load]="core.load"
+        [speed]="core.speed"
+        [temperature]="core.temperature" />
+    </section>
   </div>
 </div>

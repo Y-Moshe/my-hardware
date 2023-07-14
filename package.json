@@ -12,7 +12,8 @@
     "electron": "wait-on http://localhost:4200 && electron .",
     "forage-start": "electron-forge start",
     "package": "electron-forge package",
-    "make": "electron-forge make"
+    "make": "electron-forge make",
+    "release": "ng build && npm run make"
   },
   "dependencies": {
     "@angular/animations": "^16.1.4",
@@ -28,10 +29,12 @@
     "@ng-icons/core": "^25.1.0",
     "chart.js": "^4.3.0",
     "chartjs-adapter-moment": "^1.0.1",
+    "chartjs-plugin-datalabels": "^2.2.0",
     "electron-squirrel-startup": "^1.0.0",
     "moment": "^2.29.4",
     "ng2-charts": "^4.1.1",
     "ngx-electron": "^2.2.0",
+    "ngx-gauge": "^8.0.0",
     "rxjs": "~7.8.0",
     "systeminformation": "^5.18.6",
     "tslib": "^2.3.0",

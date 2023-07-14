@@ -1,0 +1,16 @@
+// A Fix for ngx-gauge component with label issue not centered
+.reading-label {
+  @apply left-0;
+}
+
+.reading-affix {
+  @apply text-sky-400;
+}
+
+.reading-block {
+  @apply text-sky-200;
+}
+
+.reading-label {
+  @apply text-green-300;
+}
