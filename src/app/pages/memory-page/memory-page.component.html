@@ -1,0 +1,21 @@
+<div>
+  <!-- <h1>CPU: {{ cpuLabel() }}</h1> -->
+  <app-memory-usage-chart [memData]="memStatus()" />
+
+  <div class="memory-info">
+    <p>Total RAM: {{ memStatus()?.total | bytesTo : 'GB' }}</p>
+    <p>Used: {{ memStatus()?.used | bytesTo : 'GB' }}</p>
+    <p>Free: {{ memStatus()?.free | bytesTo : 'GB' }}</p>
+    <p>Total Swap File: {{ memStatus()?.swaptotal | bytesTo : 'GB' }}</p>
+    <p>Used: {{ memStatus()?.swapused | bytesTo : 'GB' }}</p>
+    <p>Free: {{ memStatus()?.swapfree | bytesTo : 'GB' }}</p>
+  </div>
+
+  <ul>
+    <li *ngFor="let slot of memLayoutData()">
+      <pre>
+        {{ slot | json }}
+      </pre>
+    </li>
+  </ul>
+</div>
