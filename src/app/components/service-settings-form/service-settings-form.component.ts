@@ -1,4 +1,11 @@
-import { Component, OnInit, computed, inject } from '@angular/core'
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  inject,
+} from '@angular/core'
 import { CommonModule } from '@angular/common'
 import {
   FormBuilder,
@@ -7,28 +14,31 @@ import {
   Validators,
 } from '@angular/forms'
 
-import { HardwareService } from '@/services/hardware.service'
 import { HardwareServiceSettings } from '@/types'
 
 @Component({
-  selector: 'app-service-settings',
+  selector: 'app-service-settings-form',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './service-settings.component.html',
+  templateUrl: './service-settings-form.component.html',
 })
-export class ServiceSettingsComponent implements OnInit {
+export class ServiceSettingsFormComponent implements OnInit {
   form!: FormGroup
 
-  settings = computed(() => this._hwService.settings())
-  toggledLabel = computed(() =>
-    this._hwService.isServiceRunning() ? 'Stop service' : 'Start service'
-  )
+  @Input({ required: true }) settings!: HardwareServiceSettings
+  @Input({ required: true }) isServiceRunning!: boolean
+
+  @Output() onSubmit = new EventEmitter<HardwareServiceSettings>()
+  @Output() onToggleService = new EventEmitter<void>()
+
+  get toggledLabel() {
+    return this.isServiceRunning ? 'Stop service' : 'Start service'
+  }
 
   private readonly _fb = inject(FormBuilder)
-  private readonly _hwService = inject(HardwareService)
 
   ngOnInit(): void {
-    const { refreshRate, maxRecords, randomizeCpuTemperature } = this.settings()
+    const { refreshRate, maxRecords, randomizeCpuTemperature } = this.settings
 
     this.form = this._fb.group({
       refreshRate: this._fb.control(refreshRate, [
@@ -45,12 +55,6 @@ export class ServiceSettingsComponent implements OnInit {
 
   handleSubmit() {
     if (!this.form.valid) return
-
-    this._hwService.setSettings(this.form.value as HardwareServiceSettings)
-    this._hwService.restartService()
-  }
-
-  handleStopService() {
-    this._hwService.stopService()
+    this.onSubmit.emit(this.form.value as HardwareServiceSettings)
   }
 }

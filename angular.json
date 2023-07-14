@@ -19,7 +19,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "allowedCommonJsDependencies": ["moment"],
+            "allowedCommonJsDependencies": ["moment", "tailwindcss/colors"],
             "outputPath": "dist/my-hardware",
             "index": "src/index.html",
             "main": "src/main.ts",

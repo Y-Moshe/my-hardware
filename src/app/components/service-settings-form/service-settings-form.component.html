@@ -12,7 +12,7 @@
     id="randomizeCpuTemperature" />
 
   <button type="submit">Apply Settings</button>
-  <button type="button" (click)="handleStopService()">
-    {{ toggledLabel() }}
+  <button type="button" (click)="onToggleService.emit()">
+    {{ toggledLabel }}
   </button>
 </form>

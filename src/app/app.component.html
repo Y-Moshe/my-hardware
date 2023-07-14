@@ -1,9 +1,13 @@
 <div class="main-layout">
   <app-header class="main-layout full" />
 
-  <main class="main-view">
-    <app-service-settings />
-    <router-outlet></router-outlet>
+  <main class="main-view main-layout full">
+    <app-service-settings-form
+      [isServiceRunning]="isServiceRunning()"
+      [settings]="serviceSettings()"
+      (onToggleService)="handleToggleService()"
+      (onSubmit)="handleSubmit($event)" />
+    <router-outlet />
   </main>
 
   <app-footer class="full" />
