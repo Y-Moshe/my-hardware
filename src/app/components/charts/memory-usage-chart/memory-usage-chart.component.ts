@@ -42,10 +42,21 @@ export class MemoryUsageChartComponent implements OnChanges {
     },
     plugins: {
       legend: {
-        display: true,
+        labels: {
+          font: {
+            family: 'Roboto',
+            size: 16,
+          },
+          color: 'white',
+        },
       },
       datalabels: {
         formatter: (value) => this._bytesToPipe.transform(value, 'GB'),
+        font: {
+          family: 'Roboto',
+          size: 16,
+        },
+        color: colors.blue['200'],
       },
       tooltip: {
         callbacks: {
