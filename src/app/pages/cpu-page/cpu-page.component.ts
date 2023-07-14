@@ -7,6 +7,7 @@ import { HardwareService } from '@/services/hardware.service'
 import {
   CpuCorePreviewComponent,
   CpuUtilizationChartComponent,
+  InfoTableComponent,
 } from '@/components'
 import { CpuCoreStatus } from '@/types'
 
@@ -17,6 +18,7 @@ import { CpuCoreStatus } from '@/types'
     CommonModule,
     CpuUtilizationChartComponent,
     CpuCorePreviewComponent,
+    InfoTableComponent,
   ],
   templateUrl: './cpu-page.component.html',
   host: {
@@ -25,15 +27,26 @@ import { CpuCoreStatus } from '@/types'
 })
 export class CpuPageComponent implements OnInit {
   cpuData = signal<SI.CpuData | null>(null)
-  cpuLabel = computed(() => {
-    const data = this.cpuData()
-    return data ? `${data.manufacturer} ${data.brand}@${data.speed}GHz` : ''
+  cpuStatus = computed(() => this._hwService.cpuStatus())
+
+  cpuInfoTable = computed(() => {
+    const cpuData = this.cpuData()
+    const cpuStatus = this.cpuStatus()
+    if (!cpuData || !cpuStatus) return {} as Record<string, string | number>
+
+    const { manufacturer, brand, speed: baseSpeed } = cpuData
+    const { load, speed } = cpuStatus
+
+    return {
+      CPU: `${manufacturer} ${brand}@${baseSpeed}GHz`,
+      Utilization: load.currentLoad.toFixed(2) + '%',
+      Speed: speed.avg.toFixed(2) + 'GHz',
+      Cores: cpuData.cores,
+      'Physical Cores': cpuData.physicalCores,
+      Socket: cpuData.socket,
+    }
   })
 
-  cpuStatus = computed(() => this._hwService.cpuStatus())
-  cpuCurrentLoad = computed(() =>
-    this._hwService.cpuStatus()?.load.currentLoad.toFixed(2)
-  )
   cpuCoresStatus = computed<CpuCoreStatus[] | undefined>(() =>
     this.cpuStatus()?.load.cpus.map((core, i) => {
       const coreSpeed = this.cpuStatus()?.speed.cores[i]

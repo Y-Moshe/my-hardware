@@ -1,0 +1,12 @@
+<table class="info-table">
+  <tbody>
+    <tr
+      *ngFor="
+        let item of informations | keyvalue : sortBy;
+        trackBy: trackByIndex
+      ">
+      <td>{{ item.key }}</td>
+      <td>{{ item.value }}</td>
+    </tr>
+  </tbody>
+</table>

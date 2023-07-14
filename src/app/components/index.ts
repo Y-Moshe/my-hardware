@@ -6,3 +6,4 @@ export { MemoryUsageChartComponent } from './charts/memory-usage-chart/memory-us
 
 export { ServiceSettingsFormComponent } from './service-settings-form/service-settings-form.component'
 export { CpuCorePreviewComponent } from './cpu-core-preview/cpu-core-preview.component'
+export { InfoTableComponent } from './info-table/info-table.component'
