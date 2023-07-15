@@ -5,7 +5,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        'cpu-page': 'url("assets/img/cpu.jpg")',
+        'hardware': 'url("assets/img/hardware.jpg")',
       },
     },
   },
