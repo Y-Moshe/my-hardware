@@ -6,6 +6,7 @@ module.exports = {
     extend: {
       backgroundImage: {
         'hardware': 'url("assets/img/hardware.jpg")',
+        'ram-slot': 'url("assets/img/ram.svg")',
       },
     },
   },

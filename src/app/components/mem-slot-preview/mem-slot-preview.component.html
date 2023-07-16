@@ -1,0 +1,15 @@
+<article
+  class="mem-slot-preview"
+  [ngClass]="selectedClass"
+  (click)="onClick.emit(index)">
+  <div class="slot-background"></div>
+  <div class="slot-backdrop"></div>
+  <div class="slot-content">
+    <span class="absolute top-2 left-2">{{ topLeftLabel }}</span>
+    <span class="absolute top-2 right-2">{{ topRightLabel }}</span>
+    <span class="absolute bottom-2 left-2">{{ bottomLeftLabel }}</span>
+    <span class="absolute bottom-2 right-2">
+      {{ bottomRightLabel }}
+    </span>
+  </div>
+</article>

@@ -23,6 +23,18 @@ export interface CpuCoreStatus {
   temperature: number
 }
 
+export interface MemSlotData {
+  Size: string
+  Slot: string
+  Type: string
+  'Clock Speed': string
+  'Form Factor': string
+  Manufacturer: string
+  'Part Number': string
+  'Serial Number': string
+  'Configured Voltage': string
+}
+
 export interface HardwareServiceSettings {
   refreshRate: number
   maxRecords: number

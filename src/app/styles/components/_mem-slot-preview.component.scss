@@ -1,0 +1,30 @@
+.mem-slot-preview {
+  @apply relative w-[385px] h-[100px] border-4;
+  @apply transition-all duration-300 cursor-pointer;
+
+  & .slot-background {
+    @apply absolute bg-ram-slot bg-no-repeat w-full h-full;
+  }
+
+  & .slot-backdrop {
+    @apply absolute backdrop-saturate-200 bg-white/20 hidden w-full h-full;
+  }
+
+  &:hover .slot-backdrop {
+    @apply block;
+  }
+
+  &:hover,
+  &.selected {
+    @apply border-sky-400;
+  }
+
+  & .slot-content {
+    @apply absolute z-50 w-full h-full top-0 left-0;
+    @apply text-blue-100;
+
+    & span {
+      @apply bg-slate-200/25;
+    }
+  }
+}

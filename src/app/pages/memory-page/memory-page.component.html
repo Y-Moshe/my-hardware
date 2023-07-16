@@ -1,21 +1,24 @@
-<div>
-  <!-- <h1>CPU: {{ cpuLabel() }}</h1> -->
-  <app-memory-usage-chart [memData]="memStatus()" />
+<div class="main-layout full">
+  <div class="flex flex-col gap-4 py-8">
+    <app-info-table [informations]="memInfoTable()" />
 
-  <div class="memory-info">
-    <p>Total RAM: {{ memStatus()?.total | bytesTo : 'GB' }}</p>
-    <p>Used: {{ memStatus()?.used | bytesTo : 'GB' }}</p>
-    <p>Free: {{ memStatus()?.free | bytesTo : 'GB' }}</p>
-    <p>Total Swap File: {{ memStatus()?.swaptotal | bytesTo : 'GB' }}</p>
-    <p>Used: {{ memStatus()?.swapused | bytesTo : 'GB' }}</p>
-    <p>Free: {{ memStatus()?.swapfree | bytesTo : 'GB' }}</p>
+    <div class="border border-sky-400 backdrop-saturate-200 bg-white/20">
+      <app-memory-usage-chart [memData]="memStatus()" />
+    </div>
+
+    <section class="flex flex-col justify-center items-center gap-8 py-4">
+      <app-mem-slot-preview
+        *ngFor="
+          let data of memInfoSlots();
+          let i = index;
+          trackBy: trackBySlotIndex
+        "
+        [memData]="data"
+        [index]="i"
+        [selectedIndex]="memSelectedSlotIdx()"
+        (onClick)="handleSelectedSlot($event)" />
+    </section>
+
+    <app-info-table [informations]="memSelectedSlot()" />
   </div>
-
-  <ul>
-    <li *ngFor="let slot of memLayoutData()">
-      <pre>
-        {{ slot | json }}
-      </pre>
-    </li>
-  </ul>
 </div>
