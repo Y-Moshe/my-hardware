@@ -2,14 +2,10 @@ const { app, BrowserWindow, ipcMain } = require('electron')
 const si = require('systeminformation')
 const { projects } = require('./angular.json')
 
-var appWindow
-var appWindowOverlay
-
 function createAppWindow() {
-  appWindow = new BrowserWindow({
-    width: 800,
-    height: 800,
-    roundedCorners: true,
+  var appWindow = new BrowserWindow({
+    width: 1024,
+    height: 1000,
     // autoHideMenuBar: true,
     webPreferences: {
       nodeIntegration: true,
@@ -24,41 +20,16 @@ function createAppWindow() {
   appWindow.loadURL('http://localhost:4200')
 }
 
-function createAppOverlayWindow() {
-  appWindowOverlay = new BrowserWindow({
-    width: 300,
-    minWidth: 300,
-    minHeight: 200,
-    roundedCorners: true,
-    // autoHideMenuBar: true,
-    frame: false,
-    alwaysOnTop: true,
-    // modal: true,
-    // parent: appWindow,
-    transparent: true,
-    webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
-      sandbox: false,
-      webSecurity: false,
-    },
-  })
-
-  appWindowOverlay.loadURL('http://localhost:4200/overlay')
-}
-
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit()
 })
 
 app.whenReady().then(() => {
   createAppWindow()
-  // createAppOverlayWindow()
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
       createAppWindow()
-      // createAppOverlayWindow()
     }
   })
 })
