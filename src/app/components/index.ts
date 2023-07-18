@@ -3,6 +3,8 @@ export { AppFooterComponent } from './app-footer/app-footer.component'
 
 export { CpuUtilizationChartComponent } from './charts/cpu-utilization-chart/cpu-utilization-chart.component'
 export { MemoryUsageChartComponent } from './charts/memory-usage-chart/memory-usage-chart.component'
+export { DisksUsageChartComponent } from './charts/disks-usage-chart/disks-usage-chart.component'
+export { DisksIoChartComponent } from './charts/disks-io-chart/disks-io-chart.component'
 
 export { ServiceSettingsFormComponent } from './service-settings-form/service-settings-form.component'
 export { CpuCorePreviewComponent } from './cpu-core-preview/cpu-core-preview.component'
