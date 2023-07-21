@@ -35,12 +35,12 @@ export class MemoryPageComponent implements OnInit {
     if (!memStatus) return {} as Record<string, string | number>
 
     return {
-      'Total RAM': this._bytesTo.transform(memStatus.total, 'GB'),
-      'RAM Used': this._bytesTo.transform(memStatus.used, 'GB'),
-      'RAM Free': this._bytesTo.transform(memStatus.free, 'GB'),
-      'Total Swap File': this._bytesTo.transform(memStatus.swaptotal, 'GB'),
-      'Swap Used': this._bytesTo.transform(memStatus.swapused, 'GB'),
-      'Swap Free': this._bytesTo.transform(memStatus.swapfree, 'GB'),
+      'Total RAM': this._bytesTo.transform(memStatus.total),
+      'RAM Used': this._bytesTo.transform(memStatus.used),
+      'RAM Free': this._bytesTo.transform(memStatus.free),
+      'Total Swap File': this._bytesTo.transform(memStatus.swaptotal),
+      'Swap Used': this._bytesTo.transform(memStatus.swapused),
+      'Swap Free': this._bytesTo.transform(memStatus.swapfree),
     }
   })
 
@@ -49,7 +49,7 @@ export class MemoryPageComponent implements OnInit {
     if (!memData) return []
 
     return memData.map((data) => ({
-      Size: this._bytesTo.transform(data.size, 'GB'),
+      Size: this._bytesTo.transform(data.size),
       Slot: data.bank.replace('BANK', 'Slot'),
       Type: data.type,
       'Clock Speed': data.clockSpeed + 'MHz',

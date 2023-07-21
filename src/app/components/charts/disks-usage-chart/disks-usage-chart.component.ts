@@ -47,7 +47,7 @@ export class DisksUsageChartComponent implements OnChanges {
         },
       },
       datalabels: {
-        formatter: (value) => this._bytesToPipe.transform(value, 'GB'),
+        formatter: (value) => this._bytesToPipe.transform(value),
         font: {
           family: 'Roboto',
           size: 16,
@@ -57,7 +57,7 @@ export class DisksUsageChartComponent implements OnChanges {
       },
       tooltip: {
         callbacks: {
-          label: ({ parsed }) => this._bytesToPipe.transform(parsed, 'GB'),
+          label: ({ parsed }) => this._bytesToPipe.transform(parsed),
         },
       },
     },

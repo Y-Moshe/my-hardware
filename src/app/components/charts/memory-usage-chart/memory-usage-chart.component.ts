@@ -51,7 +51,7 @@ export class MemoryUsageChartComponent implements OnChanges {
         },
       },
       datalabels: {
-        formatter: (value) => this._bytesToPipe.transform(value, 'GB'),
+        formatter: (value) => this._bytesToPipe.transform(value),
         font: {
           family: 'Roboto',
           size: 16,
@@ -60,7 +60,7 @@ export class MemoryUsageChartComponent implements OnChanges {
       },
       tooltip: {
         callbacks: {
-          label: ({ parsed }) => this._bytesToPipe.transform(parsed, 'GB'),
+          label: ({ parsed }) => this._bytesToPipe.transform(parsed),
         },
       },
     },
@@ -82,8 +82,8 @@ export class MemoryUsageChartComponent implements OnChanges {
     if (this.chart && this.chart.data && currentLoad) {
       this.chart.data.datasets[0].data[0] = currentLoad.used
       this.chart.data.datasets[0].data[1] = currentLoad.free
-      this.chart.data.datasets[0].data[3] = currentLoad.swapused
-      this.chart.data.datasets[0].data[2] = currentLoad.swapfree
+      this.chart.data.datasets[0].data[2] = currentLoad.swapused
+      this.chart.data.datasets[0].data[3] = currentLoad.swapfree
 
       this.chart.update()
     }
