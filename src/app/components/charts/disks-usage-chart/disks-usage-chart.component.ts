@@ -52,8 +52,8 @@ export class DisksUsageChartComponent implements OnChanges {
           family: 'Roboto',
           size: 16,
         },
+        align: (context) => (context.dataIndex % 2 === 0 ? 'center' : 'bottom'),
         color: colors.blue['200'],
-        rotation: 45,
       },
       tooltip: {
         callbacks: {
