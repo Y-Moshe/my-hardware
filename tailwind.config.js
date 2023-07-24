@@ -5,7 +5,6 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        hardware: 'url("assets/img/hardware.jpg")',
         'ram-slot': 'url("assets/img/ram.svg")',
         'ssd-drive': 'url("assets/img/ssd.png")',
         'hdd-drive': 'url("assets/img/hdd.png")',
