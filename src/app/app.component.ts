@@ -1,4 +1,4 @@
-import { Component, OnInit, computed, inject } from '@angular/core'
+import { Component, OnInit, computed, inject, effect } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { RouterOutlet } from '@angular/router'
 
@@ -27,6 +27,15 @@ export class AppComponent implements OnInit {
   isServiceRunning = computed(() => this._hwService.isServiceRunning())
 
   private readonly _hwService = inject(HardwareService)
+
+  constructor() {
+    effect(() => {
+      const { theme } = this._hwService.settings()
+      theme === 'dark'
+        ? document.documentElement.classList.add('dark')
+        : document.documentElement.classList.remove('dark')
+    })
+  }
 
   ngOnInit(): void {
     this._hwService.startService()

@@ -7,7 +7,7 @@
   }
 
   & .drive-backdrop {
-    @apply absolute backdrop-saturate-200 bg-white/20 hidden w-full h-full;
+    @apply absolute backdrop-saturate-200 bg-white/10 hidden w-full h-full;
   }
 
   &:hover .drive-backdrop {
@@ -16,7 +16,7 @@
 
   &:hover,
   &.selected {
-    @apply border-sky-400;
+    @apply border-slate-600/25 dark:border-sky-400;
   }
 
   &.selected {

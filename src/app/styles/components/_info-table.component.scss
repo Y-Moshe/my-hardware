@@ -1,17 +1,11 @@
 .info-table {
   @apply border-collapse border border-spacing-2 border-slate-500;
-  @apply backdrop-saturate-200 bg-white/20 w-full;
+  @apply bg-white/10 w-full;
 
   & tr {
     & td {
-      @apply border border-sky-400 p-1;
-    }
-
-    & td:first-child {
-      @apply text-blue-50;
-    }
-    & td:last-child {
-      @apply text-white;
+      @apply border border-slate-400 dark:border-sky-400 p-1;
+      @apply text-slate-900 dark:text-blue-50;
     }
   }
 }

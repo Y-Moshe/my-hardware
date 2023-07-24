@@ -7,21 +7,22 @@
   }
 
   & .slot-backdrop {
-    @apply absolute backdrop-saturate-200 bg-white/20 hidden w-full h-full;
+    @apply absolute backdrop-saturate-200 bg-white/10 hidden w-full h-full;
   }
 
-  &:hover .slot-backdrop {
+  &:hover .slot-backdrop,
+  &.selected .slot-backdrop {
     @apply block;
   }
 
   &:hover,
   &.selected {
-    @apply border-sky-400;
+    @apply border-red-400 dark:border-sky-400;
   }
 
   & .slot-content {
     @apply absolute z-50 w-full h-full top-0 left-0;
-    @apply text-blue-100;
+    @apply text-blue-200 dark:text-blue-100;
 
     & span {
       @apply bg-slate-200/25;

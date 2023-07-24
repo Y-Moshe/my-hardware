@@ -1,8 +1,7 @@
-<div class="cpu-utilization-chart max-h-96 flex justify-center">
+<div class="chart-wrapper">
   <canvas
     #cpuCanvasRef
     baseChart
-    class="chart"
     [data]="cpuChartDatasets"
     [options]="cpuChartOptions"
     [type]="cpuChartType"></canvas>

@@ -4,13 +4,13 @@
 }
 
 .reading-affix {
-  @apply text-sky-400;
+  @apply text-slate-800 dark:text-sky-400;
 }
 
 .reading-block {
-  @apply text-sky-200;
+  @apply text-slate-600 dark:text-sky-200;
 }
 
 .reading-label {
-  @apply text-green-300;
+  @apply text-green-600 dark:text-green-300;
 }

@@ -22,6 +22,7 @@ export class HardwareService {
     refreshRate: 1000,
     maxRecords: 60,
     randomizeCpuTemperature: false,
+    theme: 'light'
   })
   isServiceRunning = signal<boolean>(false)
   intervalId: NodeJS.Timer | null = null

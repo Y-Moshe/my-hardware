@@ -2,15 +2,12 @@
   <div class="flex flex-col gap-4 py-8">
     <app-info-table [informations]="cpuInfoTable()" />
 
-    <div class="border border-sky-400 backdrop-saturate-200 bg-white/20">
-      <app-cpu-utilization-chart
-        [cpuLoad]="cpuStatus()?.load"
-        [cpuTemperature]="cpuStatus()?.temperature"
-        [maxRecords]="hwServiceSettings().maxRecords"
-        [randomizeCpuTemperature]="
-          hwServiceSettings().randomizeCpuTemperature
-        " />
-    </div>
+    <app-cpu-utilization-chart
+      [cpuLoad]="cpuStatus()?.load"
+      [cpuTemperature]="cpuStatus()?.temperature"
+      [maxRecords]="hwServiceSettings().maxRecords"
+      [randomizeCpuTemperature]="hwServiceSettings().randomizeCpuTemperature"
+      [theme]="hwServiceSettings().theme" />
 
     <section class="flex flex-wrap justify-center items-start gap-8 py-4">
       <app-cpu-core-preview

@@ -14,6 +14,7 @@ import colors from 'tailwindcss/colors'
 
 import { Systeminformation as SI } from 'systeminformation'
 import { BytesToPipe } from '@/pipes/bytes-to.pipe'
+import { AppTheme } from '@/types'
 
 @Component({
   selector: 'app-memory-usage-chart',
@@ -70,6 +71,7 @@ export class MemoryUsageChartComponent implements OnChanges {
   private readonly _bytesToPipe = inject(BytesToPipe)
 
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective
+  @Input() theme: AppTheme = 'dark'
   @Input({ required: true }) memData: SI.MemData | null | undefined = null
 
   ngOnChanges(changes: SimpleChanges): void {

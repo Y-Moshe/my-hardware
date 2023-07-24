@@ -13,6 +13,7 @@ import colors from 'tailwindcss/colors'
 import 'chartjs-adapter-moment'
 
 import { Systeminformation as SI } from 'systeminformation'
+import { AppTheme } from '@/types'
 
 @Component({
   selector: 'app-cpu-utilization-chart',
@@ -148,6 +149,7 @@ export class CpuUtilizationChartComponent implements OnChanges {
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective
   @ViewChild('cpuCanvasRef') cpuCanvasRef?: ElementRef<HTMLCanvasElement>
 
+  @Input() theme: AppTheme = 'dark'
   @Input() maxRecords: number = 60
   @Input() randomizeCpuTemperature: boolean = false
   @Input({ required: true }) cpuLoad: SI.CurrentLoadData | null | undefined =

@@ -38,7 +38,8 @@ export class ServiceSettingsFormComponent implements OnInit {
   private readonly _fb = inject(FormBuilder)
 
   ngOnInit(): void {
-    const { refreshRate, maxRecords, randomizeCpuTemperature } = this.settings
+    const { refreshRate, maxRecords, randomizeCpuTemperature, theme } =
+      this.settings
 
     this.form = this._fb.group({
       refreshRate: this._fb.control(refreshRate, [
@@ -50,6 +51,7 @@ export class ServiceSettingsFormComponent implements OnInit {
         Validators.min(10),
       ]),
       randomizeCpuTemperature: this._fb.control(randomizeCpuTemperature),
+      theme: this._fb.control(theme),
     })
   }
 

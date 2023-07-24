@@ -69,6 +69,7 @@ export class MemoryPageComponent implements OnInit {
     return slotData[idx]
   })
 
+  hwServiceSettings = computed(() => this._hwService.settings())
   private readonly _hwService = inject(HardwareService)
   private readonly _bytesTo = inject(BytesToPipe)
 

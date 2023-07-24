@@ -14,6 +14,7 @@ import colors from 'tailwindcss/colors'
 
 import { Systeminformation as SI } from 'systeminformation'
 import { BytesToPipe } from '@/pipes/bytes-to.pipe'
+import { AppTheme } from '@/types'
 
 @Component({
   selector: 'app-disks-usage-chart',
@@ -67,6 +68,7 @@ export class DisksUsageChartComponent implements OnChanges {
   private readonly _bytesToPipe = inject(BytesToPipe)
 
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective
+  @Input() theme: AppTheme = 'dark'
   @Input({ required: true }) disksFsData: SI.FsSizeData[] | null | undefined =
     []
 
