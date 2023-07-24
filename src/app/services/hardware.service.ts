@@ -77,7 +77,7 @@ export class HardwareService {
     return this._electronService.ipcRenderer.invoke('getCpuData')
   }
 
-  public getDisksLayout(): Promise<SI.DiskLayoutData> {
+  public getDisksLayout(): Promise<SI.DiskLayoutData[]> {
     return this._electronService.ipcRenderer.invoke('getDisksLayout')
   }
 
