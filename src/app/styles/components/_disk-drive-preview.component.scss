@@ -1,0 +1,35 @@
+.disk-drive-preview {
+  @apply relative w-[215px] h-[256px];
+  @apply transition-all duration-100 cursor-pointer;
+
+  & .drive-background {
+    @apply absolute bg-no-repeat w-full h-full bg-cover;
+  }
+
+  & .drive-backdrop {
+    @apply absolute backdrop-saturate-200 bg-white/20 hidden w-full h-full;
+  }
+
+  &:hover .drive-backdrop {
+    @apply block;
+  }
+
+  &:hover,
+  &.selected {
+    @apply border-sky-400;
+  }
+
+  &.selected {
+    @apply border-4;
+  }
+
+  & .drive-content {
+    @apply absolute z-50 w-full h-full top-0 left-0;
+    @apply text-blue-100;
+
+    & span {
+      @apply bg-slate-200/25;
+      @apply max-w-[175px]
+    }
+  }
+}

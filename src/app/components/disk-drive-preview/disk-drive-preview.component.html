@@ -1,0 +1,15 @@
+<article
+  class="disk-drive-preview"
+  [ngClass]="selectedClass"
+  (click)="onClick.emit(index)">
+  <div class="drive-background" [ngClass]="driveTypeClass"></div>
+  <div class="drive-backdrop"></div>
+  <div class="drive-content">
+    <span class="absolute top-5 left-5">
+      {{ diskLayoutData.name }}
+    </span>
+    <span class="absolute bottom-[70px] left-5">
+      {{ diskLayoutData.size | bytesTo }}
+    </span>
+  </div>
+</article>

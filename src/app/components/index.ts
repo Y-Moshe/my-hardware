@@ -9,3 +9,4 @@ export { ServiceSettingsFormComponent } from './service-settings-form/service-se
 export { CpuCorePreviewComponent } from './cpu-core-preview/cpu-core-preview.component'
 export { InfoTableComponent } from './info-table/info-table.component'
 export { MemSlotPreviewComponent } from './mem-slot-preview/mem-slot-preview.component'
+export { DiskDrivePreviewComponent } from './disk-drive-preview/disk-drive-preview.component'

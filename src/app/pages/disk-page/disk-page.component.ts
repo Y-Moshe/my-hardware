@@ -1,12 +1,14 @@
 import { Component, OnInit, computed, inject, signal } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { FormsModule } from '@angular/forms'
 import { Systeminformation as SI } from 'systeminformation'
 import 'chartjs-adapter-moment'
 
 import { HardwareService } from '@/services/hardware.service'
-import { DisksUsageChartComponent, InfoTableComponent } from '@/components'
-import { CpuCoreStatus } from '@/types'
+import {
+  DiskDrivePreviewComponent,
+  DisksUsageChartComponent,
+  InfoTableComponent,
+} from '@/components'
 import { BytesToPipe } from '@/pipes/bytes-to.pipe'
 
 @Component({
@@ -15,8 +17,8 @@ import { BytesToPipe } from '@/pipes/bytes-to.pipe'
   imports: [
     CommonModule,
     DisksUsageChartComponent,
+    DiskDrivePreviewComponent,
     InfoTableComponent,
-    FormsModule,
   ],
   templateUrl: './disk-page.component.html',
   providers: [BytesToPipe],
@@ -25,10 +27,8 @@ import { BytesToPipe } from '@/pipes/bytes-to.pipe'
   },
 })
 export class DiskPageComponent implements OnInit {
-  disksData = signal<SI.DiskLayoutData | null>(null)
+  disksLayoutData = signal<SI.DiskLayoutData[]>([])
   disksStatus = computed(() => this._hwService.diskStatus())
-
-  selectedStats: 'usage' | 'io' = 'usage'
 
   disksInfoTable = computed(() => {
     const fsSize = this.disksStatus()?.fsSize
@@ -58,6 +58,30 @@ export class DiskPageComponent implements OnInit {
     return info
   })
 
+  disksDriveInfo = computed(() => {
+    const disksData = this.disksLayoutData()
+    if (!disksData) return []
+
+    return disksData.map((data) => ({
+      Device: data.device,
+      Type: data.type,
+      Name: data.name,
+      Vendor: data.vendor,
+      Size: this._bytesTo.transform(data.size),
+      'Serial Number': data.serialNum,
+      'Interface Type': data.interfaceType,
+    }))
+  })
+  selectedDiskDriveIdx = signal<number | null>(null)
+  selectedDiskDrive = computed(() => {
+    const drivesData = this.disksDriveInfo()
+    const idx = this.selectedDiskDriveIdx()
+    if (!drivesData || idx === null)
+      return {} as Record<string, string | number>
+
+    return drivesData[idx]
+  })
+
   hwServiceSettings = computed(() => this._hwService.settings())
   private readonly _hwService = inject(HardwareService)
   private readonly _bytesTo = inject(BytesToPipe)
@@ -65,11 +89,15 @@ export class DiskPageComponent implements OnInit {
   ngOnInit(): void {
     this._hwService
       .getDisksLayout()
-      .then((data) => this.disksData.set(data))
+      .then((data) => this.disksLayoutData.set(data))
       .catch(console.log)
   }
 
-  trackByCoreIndex(index: number, core: CpuCoreStatus) {
+  trackByDriveIndex(index: number, drive: SI.DiskLayoutData) {
     return index
+  }
+
+  handleSelectedSlot(index: number) {
+    this.selectedDiskDriveIdx.set(index)
   }
 }

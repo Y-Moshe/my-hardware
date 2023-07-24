@@ -6,12 +6,19 @@
       <app-disks-usage-chart [disksFsData]="disksStatus()?.fsSize" />
     </div>
 
-    <section class="flex flex-wrap justify-center items-start gap-8 py-4">
-      <!-- <app-cpu-core-preview
-        *ngFor="let core of cpuCoresStatus(); trackBy: trackByCoreIndex"
-        [load]="core.load"
-        [speed]="core.speed"
-        [temperature]="core.temperature" /> -->
+    <section class="flex flex-wrap gap-8 py-4">
+      <app-disk-drive-preview
+        *ngFor="
+          let data of disksLayoutData();
+          let i = index;
+          trackBy: trackByDriveIndex
+        "
+        [diskLayoutData]="data"
+        [index]="i"
+        [selectedIndex]="selectedDiskDriveIdx()"
+        (onClick)="handleSelectedSlot($event)" />
     </section>
+
+    <app-info-table [informations]="selectedDiskDrive()" />
   </div>
 </div>
