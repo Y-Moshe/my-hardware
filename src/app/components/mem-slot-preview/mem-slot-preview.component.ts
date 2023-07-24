@@ -16,7 +16,6 @@ export class MemSlotPreviewComponent {
   @Output() onClick = new EventEmitter<number>()
 
   get selectedClass() {
-    this.memData['Configured Voltage']
     return {
       selected: this.index === this.selectedIndex,
     }
