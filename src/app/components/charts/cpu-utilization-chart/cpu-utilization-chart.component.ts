@@ -29,21 +29,23 @@ export class CpuUtilizationChartComponent implements OnChanges {
       {
         data: [],
         label: 'CPU Load',
-        borderColor: 'rgba(59, 130, 246, 1)',
-        pointBackgroundColor: 'rgba(148, 159, 177, 1)',
+        borderColor: colors.sky['400'],
+        pointBackgroundColor: colors.sky['500'],
         pointBorderColor: '#fff',
         pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(148, 159, 177, 0.8)',
+        pointHoverBorderColor: colors.red['400'],
+        pointHitRadius: 10,
         fill: true,
       },
       {
         data: [],
         label: 'Temperature',
-        borderColor: 'rgba(251, 146, 60, 1)',
-        pointBackgroundColor: 'rgba(148, 159, 177, 1)',
+        borderColor: colors.orange['400'],
+        pointBackgroundColor: colors.orange['500'],
         pointBorderColor: '#fff',
         pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(148, 159, 177, 0.8)',
+        pointHoverBorderColor: colors.red['400'],
+        pointHitRadius: 10,
         yAxisID: 'tempYAxis',
         fill: true,
       },
@@ -58,9 +60,6 @@ export class CpuUtilizationChartComponent implements OnChanges {
     },
     scales: {
       y: {
-        title: {
-          color: 'white',
-        },
         position: 'right',
         min: 0,
         max: 100,
@@ -69,10 +68,10 @@ export class CpuUtilizationChartComponent implements OnChanges {
             family: 'Roboto',
             size: 16,
           },
-          color: (ctx) =>
-            ctx.tick.value === 100 ? colors.sky['300'] : colors.sky['100'],
-          textStrokeColor: colors.sky['400'],
-          textStrokeWidth: 1,
+          color: () =>
+            this.theme === 'light' ? colors.sky['400'] : colors.sky['200'],
+          textStrokeWidth: (ctx) => (ctx.tick.value === 100 ? 1 : 0),
+          textStrokeColor: colors.sky[200],
           stepSize: 25,
           callback: (value) => (value ? value + '%' : ''),
         },
@@ -87,35 +86,22 @@ export class CpuUtilizationChartComponent implements OnChanges {
             size: 16,
           },
           stepSize: 25,
-          textStrokeWidth: 1,
           color(ctx) {
             switch (ctx.tick.value) {
               case 0:
                 return colors.slate[100]
               case 25:
-                return colors.green[200]
+                return colors.green[400]
               case 50:
-                return colors.yellow[200]
+                return colors.yellow[400]
               case 75:
-                return colors.orange[200]
+                return colors.orange[400]
               default:
                 return colors.red[500]
             }
           },
-          textStrokeColor(ctx) {
-            switch (ctx.tick.value) {
-              case 0:
-                return colors.slate[500]
-              case 25:
-                return colors.green[600]
-              case 50:
-                return colors.yellow[600]
-              case 75:
-                return colors.orange[600]
-              default:
-                return colors.red[600]
-            }
-          },
+          textStrokeWidth: (ctx) => (ctx.tick.value === 100 ? 1 : 0),
+          textStrokeColor: colors.red[200],
           callback: (value) => (value ? value + '°C' : ''),
         },
       },
@@ -132,7 +118,6 @@ export class CpuUtilizationChartComponent implements OnChanges {
             family: 'Roboto',
             size: 16,
           },
-          color: 'white',
         },
       },
       tooltip: {
@@ -166,6 +151,20 @@ export class CpuUtilizationChartComponent implements OnChanges {
         changes['cpuTemperature'].currentValue
       )
     }
+
+    if (changes['theme']) {
+      this.applyThemeColors(changes['theme'].currentValue)
+    }
+  }
+
+  applyThemeColors(theme: AppTheme) {
+    if (theme === 'light') {
+      this.cpuChartOptions!.plugins!.legend!.labels!.color = colors.slate['600']
+    } else if (theme === 'dark') {
+      this.cpuChartOptions!.plugins!.legend!.labels!.color = colors.blue['100']
+    }
+
+    this.chart?.render()
   }
 
   updateDatasets(
