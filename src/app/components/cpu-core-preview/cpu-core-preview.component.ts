@@ -15,7 +15,7 @@ export class CpuCorePreviewComponent {
   @Input() temperature: number = 0
 
   get label() {
-    return `${this.speed}GHz ${this.temperature}°C`
+    return `${this.speed}GHz ${this.temperature ? this.temperature + '°C' : ''}`
   }
 
   get color() {
