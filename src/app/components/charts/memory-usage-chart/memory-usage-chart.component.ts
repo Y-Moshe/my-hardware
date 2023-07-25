@@ -27,7 +27,6 @@ export class MemoryUsageChartComponent implements OnChanges {
   memChartType: ChartConfiguration['type'] = 'pie'
 
   memChartDatasets: ChartConfiguration['data'] = {
-    // backgroundColor: ['red', 'blue']
     datasets: [
       {
         data: [20, 30, 40, 10],
@@ -48,7 +47,6 @@ export class MemoryUsageChartComponent implements OnChanges {
             family: 'Roboto',
             size: 16,
           },
-          color: 'white',
         },
       },
       datalabels: {
@@ -57,7 +55,6 @@ export class MemoryUsageChartComponent implements OnChanges {
           family: 'Roboto',
           size: 16,
         },
-        color: colors.blue['200'],
       },
       tooltip: {
         callbacks: {
@@ -78,6 +75,22 @@ export class MemoryUsageChartComponent implements OnChanges {
     if (changes['memData']) {
       this.updateDatasets(changes['memData'].currentValue)
     }
+
+    if (changes['theme']) {
+      this.applyThemeColors(changes['theme'].currentValue)
+    }
+  }
+
+  applyThemeColors(theme: AppTheme) {
+    if (theme === 'light') {
+      this.memChartOptions!.plugins!.legend!.labels!.color = colors.slate['900']
+      this.memChartOptions!.plugins!.datalabels!.color = colors.slate['600']
+    } else if (theme === 'dark') {
+      this.memChartOptions!.plugins!.legend!.labels!.color = colors.blue['200']
+      this.memChartOptions!.plugins!.datalabels!.color = colors.blue['100']
+    }
+
+    this.chart?.render()
   }
 
   updateDatasets(currentLoad: SI.MemData | null | undefined) {

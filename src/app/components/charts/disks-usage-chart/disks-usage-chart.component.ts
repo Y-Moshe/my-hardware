@@ -44,7 +44,6 @@ export class DisksUsageChartComponent implements OnChanges {
             family: 'Roboto',
             size: 16,
           },
-          color: 'white',
         },
       },
       datalabels: {
@@ -54,7 +53,6 @@ export class DisksUsageChartComponent implements OnChanges {
           size: 16,
         },
         align: (context) => (context.dataIndex % 2 === 0 ? 'center' : 'bottom'),
-        color: colors.blue['200'],
       },
       tooltip: {
         callbacks: {
@@ -76,6 +74,22 @@ export class DisksUsageChartComponent implements OnChanges {
     if (changes['disksFsData']) {
       this.updateDatasets(changes['disksFsData'].currentValue)
     }
+
+    if (changes['theme']) {
+      this.applyThemeColors(changes['theme'].currentValue)
+    }
+  }
+
+  applyThemeColors(theme: AppTheme) {
+    if (theme === 'light') {
+      this.chartOptions!.plugins!.legend!.labels!.color = colors.slate['900']
+      this.chartOptions!.plugins!.datalabels!.color = colors.slate['600']
+    } else if (theme === 'dark') {
+      this.chartOptions!.plugins!.legend!.labels!.color = colors.blue['200']
+      this.chartOptions!.plugins!.datalabels!.color = colors.blue['100']
+    }
+
+    this.chart?.render()
   }
 
   updateDatasets(disksFsData: SI.FsSizeData[] | null | undefined) {
