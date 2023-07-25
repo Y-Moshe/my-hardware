@@ -9,7 +9,8 @@
       [randomizeCpuTemperature]="hwServiceSettings().randomizeCpuTemperature"
       [theme]="hwServiceSettings().theme" />
 
-    <section class="flex flex-wrap justify-center items-start gap-8 py-4">
+    <section
+      class="flex flex-wrap gap-x-8 gap-y-4 px-6 py-4 border border-slate-400 dark:border-sky-400 bg-white/10">
       <app-cpu-core-preview
         *ngFor="let core of cpuCoresStatus(); trackBy: trackByCoreIndex"
         [load]="core.load"

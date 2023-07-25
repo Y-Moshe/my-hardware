@@ -1,6 +1,6 @@
 .mem-slot-preview {
-  @apply relative w-[385px] h-[100px] border-4;
-  @apply transition-all duration-300 cursor-pointer;
+  @apply relative w-[385px] h-[100px];
+  @apply transition-all duration-100 cursor-pointer;
 
   & .slot-background {
     @apply absolute bg-ram-slot bg-no-repeat w-full h-full;
@@ -18,6 +18,10 @@
   &:hover,
   &.selected {
     @apply border-red-400 dark:border-sky-400;
+  }
+
+  &.selected {
+    @apply border-4;
   }
 
   & .slot-content {
