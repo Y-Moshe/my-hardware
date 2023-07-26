@@ -5,7 +5,10 @@ const { projects } = require('./angular.json')
 function createAppWindow() {
   var appWindow = new BrowserWindow({
     width: 1024,
-    height: 1000,
+    minWidth: 768,
+    maxWidth: 1024,
+    height: 800,
+    minHeight: 800,
     // autoHideMenuBar: true,
     webPreferences: {
       nodeIntegration: true,
