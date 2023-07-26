@@ -1,6 +1,8 @@
 <div class="main-layout full">
   <div class="flex flex-col gap-4 py-8">
-    <app-info-table [informations]="disksInfoTable()" />
+    <app-info-table
+      [headers]="['Total', 'Used', 'Free']"
+      [rows]="disksInfoTable()" />
 
     <app-disks-usage-chart
       [disksFsData]="disksStatus()?.fsSize"

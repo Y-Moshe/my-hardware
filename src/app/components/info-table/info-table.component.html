@@ -1,12 +1,27 @@
 <table class="info-table">
-  <tbody>
-    <tr
-      *ngFor="
-        let item of informations | keyvalue : sortBy;
-        trackBy: trackByIndex
-      ">
-      <td>{{ item.key }}</td>
-      <td>{{ item.value }}</td>
-    </tr>
-  </tbody>
+  <ng-container *ngIf="!headers; else headersTemplate">
+    <tbody>
+      <tr
+        *ngFor="
+          let item of informations | keyvalue : sortBy;
+          trackBy: trackByIndex
+        ">
+        <td class="info-cell">{{ item.key }}</td>
+        <td class="info-cell">{{ item.value }}</td>
+      </tr>
+    </tbody>
+  </ng-container>
+
+  <ng-template #headersTemplate>
+    <thead>
+      <tr>
+        <th class="info-header" *ngFor="let headerName of headers">{{ headerName }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let rowCols of rows; trackBy: trackByIndex">
+        <td class="info-cell" *ngFor="let rowText of rowCols">{{ rowText }}</td>
+      </tr>
+    </tbody>
+  </ng-template>
 </table>
