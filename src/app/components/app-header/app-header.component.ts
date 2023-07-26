@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { RouterLink } from '@angular/router'
+import { RouterLink, RouterLinkActive } from '@angular/router'
 import { NgIconComponent, provideIcons } from '@ng-icons/core'
 import {
   bootstrapCpu,
@@ -10,7 +10,7 @@ import {
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, RouterLink, NgIconComponent],
+  imports: [CommonModule, RouterLink, RouterLinkActive, NgIconComponent],
   templateUrl: './app-header.component.html',
   viewProviders: [provideIcons({ bootstrapCpu, bootstrapThreeDotsVertical })],
 })
