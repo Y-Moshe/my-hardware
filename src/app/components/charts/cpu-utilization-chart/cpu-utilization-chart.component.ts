@@ -136,6 +136,7 @@ export class CpuUtilizationChartComponent implements OnChanges {
 
   @Input() theme: AppTheme = 'dark'
   @Input() maxRecords: number = 60
+  @Input() animate: boolean = true
   @Input() randomizeCpuTemperature: boolean = false
   @Input({ required: true }) cpuLoad: SI.CurrentLoadData | null | undefined =
     null
@@ -154,6 +155,10 @@ export class CpuUtilizationChartComponent implements OnChanges {
 
     if (changes['theme']) {
       this.applyThemeColors(changes['theme'].currentValue)
+    }
+
+    if (changes['maxRecords']) {
+      this.updateDatasetMaxRecords(changes['maxRecords'].currentValue)
     }
   }
 
@@ -174,12 +179,16 @@ export class CpuUtilizationChartComponent implements OnChanges {
     const currentTime = Date.now()
 
     if (this.chart && this.chart.data && currentLoad && currentTemp) {
-      // Getting the last `maxRecords` value
-      const records = this.maxRecords - 1
-      const utilizationData = this.chart.data.datasets[0].data.slice(-records)
-      const temperatureData = this.chart.data.datasets[1].data.slice(-records)
+      const utilizationData = this.chart.data.datasets[0].data
+      const temperatureData = this.chart.data.datasets[1].data
 
-      // Pushing the new values to round to the `maxRecords` value
+      // If maximum records have been reached, remove the first inserted record
+      if (utilizationData.length >= this.maxRecords) {
+        utilizationData.shift()
+        temperatureData.shift()
+      }
+
+      // Pushing the new data values
       utilizationData.push({ x: currentTime, y: currentLoad.currentLoad })
       temperatureData.push({
         x: currentTime,
@@ -189,17 +198,26 @@ export class CpuUtilizationChartComponent implements OnChanges {
           : currentTemp.main,
       })
 
-      // Updating the data sources
-      this.chart.data.datasets[0].data = utilizationData
-      this.chart.data.datasets[1].data = temperatureData
-
       if (this.chart.data.labels) {
-        const labelsData = this.chart.data.labels.slice(-records)
+        const labelsData = this.chart.data.labels
+        labelsData.length >= this.maxRecords && labelsData.shift()
         labelsData.push(currentTime)
-        this.chart.data.labels = labelsData
       }
 
-      this.chart.update('none')
+      this.chart.update(this.animate ? '' : 'none')
+    }
+  }
+
+  updateDatasetMaxRecords(max: number) {
+    if (this.chart && this.chart.data && this.chart.data.labels) {
+      const utilizationData = this.chart.data.datasets[0].data.slice(-max + 1)
+      const temperatureData = this.chart.data.datasets[1].data.slice(-max + 1)
+      const labelsData = this.chart.data.labels.slice(-max + 1)
+      this.chart.data.datasets[0].data = utilizationData
+      this.chart.data.datasets[1].data = temperatureData
+      this.chart.data.labels = labelsData
+
+      this.chart.update(this.animate ? '' : 'none')
     }
   }
 
