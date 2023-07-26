@@ -4,8 +4,8 @@ const { projects } = require('./angular.json')
 
 function createAppWindow() {
   var appWindow = new BrowserWindow({
-    width: 1024,
-    minWidth: 768,
+    width: 769,
+    minWidth: 769,
     maxWidth: 1024,
     height: 800,
     minHeight: 800,
