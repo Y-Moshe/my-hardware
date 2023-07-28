@@ -2,13 +2,8 @@ import { Injectable, signal } from '@angular/core'
 import { ElectronService } from 'ngx-electron'
 
 import { Systeminformation as SI } from 'systeminformation'
-import {
-  HardwareStatus,
-  HardwareServiceSettings,
-  MemStatus,
-  DiskStatus,
-  CpuStatus,
-} from '@/types'
+import { HardwareStatus, MemStatus, DiskStatus, CpuStatus } from '@/types'
+import { UserSettingsService } from './user-settings.service'
 
 @Injectable({
   providedIn: 'root',
@@ -18,19 +13,13 @@ export class HardwareService {
   memStatus = signal<MemStatus | null>(null)
   diskStatus = signal<DiskStatus | null>(null)
 
-  settings = signal<HardwareServiceSettings>({
-    refreshRate: 1000,
-    maxRecords: 60,
-    theme: 'dark',
-  })
   isServiceRunning = signal<boolean>(false)
   intervalId: NodeJS.Timer | null = null
 
-  constructor(private readonly _electronService: ElectronService) {}
-
-  public setSettings(settings: HardwareServiceSettings) {
-    this.settings.set(settings)
-  }
+  constructor(
+    private readonly _electronService: ElectronService,
+    private readonly _userSettings: UserSettingsService
+  ) {}
 
   public startService(): void {
     if (this.isServiceRunning()) return
@@ -55,7 +44,7 @@ export class HardwareService {
         disksIO,
         fsSize,
       })
-    }, this.settings().refreshRate)
+    }, this._userSettings.settings().refreshRate)
 
     this.isServiceRunning.set(true)
   }

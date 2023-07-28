@@ -6,7 +6,7 @@
 
     <app-disks-usage-chart
       [disksFsData]="disksStatus()?.fsSize"
-      [theme]="hwServiceSettings().theme" />
+      [theme]="userSettings().theme" />
 
     <section class="flex flex-wrap gap-8 py-4">
       <app-disk-drive-preview

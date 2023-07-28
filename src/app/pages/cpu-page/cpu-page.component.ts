@@ -4,6 +4,7 @@ import { Systeminformation as SI } from 'systeminformation'
 import 'chartjs-adapter-moment'
 
 import { HardwareService } from '@/services/hardware.service'
+import { UserSettingsService } from '@/services/user-settings.service'
 import {
   CpuCorePreviewComponent,
   CpuUtilizationChartComponent,
@@ -60,8 +61,9 @@ export class CpuPageComponent implements OnInit {
     })
   )
 
-  hwServiceSettings = computed(() => this._hwService.settings())
+  userSettings = computed(() => this._userSettingsService.settings())
   private readonly _hwService = inject(HardwareService)
+  private readonly _userSettingsService = inject(UserSettingsService)
 
   ngOnInit(): void {
     this._hwService

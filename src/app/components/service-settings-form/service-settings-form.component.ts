@@ -14,7 +14,7 @@ import {
   Validators,
 } from '@angular/forms'
 
-import { HardwareServiceSettings } from '@/types'
+import { UserSettings } from '@/types'
 
 @Component({
   selector: 'app-service-settings-form',
@@ -25,10 +25,10 @@ import { HardwareServiceSettings } from '@/types'
 export class ServiceSettingsFormComponent implements OnInit {
   form!: FormGroup
 
-  @Input({ required: true }) settings!: HardwareServiceSettings
+  @Input({ required: true }) settings!: UserSettings
   @Input({ required: true }) isServiceRunning!: boolean
 
-  @Output() onSubmit = new EventEmitter<HardwareServiceSettings>()
+  @Output() onSubmit = new EventEmitter<UserSettings>()
   @Output() onToggleService = new EventEmitter<void>()
 
   get toggledLabel() {
@@ -73,6 +73,6 @@ export class ServiceSettingsFormComponent implements OnInit {
 
   handleSubmit() {
     if (!this.form.valid) return
-    this.onSubmit.emit(this.form.value as HardwareServiceSettings)
+    this.onSubmit.emit(this.form.value as UserSettings)
   }
 }

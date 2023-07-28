@@ -8,7 +8,8 @@ import {
   ServiceSettingsFormComponent,
 } from '@/components'
 import { HardwareService } from '@/services/hardware.service'
-import { HardwareServiceSettings } from '@/types'
+import { UserSettingsService } from '@/services/user-settings.service'
+import { UserSettings } from '@/types'
 
 @Component({
   selector: 'app-root',
@@ -23,14 +24,15 @@ import { HardwareServiceSettings } from '@/types'
   ],
 })
 export class AppComponent implements OnInit {
-  serviceSettings = computed(() => this._hwService.settings())
+  userSettings = computed(() => this._userSettingsService.settings())
   isServiceRunning = computed(() => this._hwService.isServiceRunning())
 
   private readonly _hwService = inject(HardwareService)
+  private readonly _userSettingsService = inject(UserSettingsService)
 
   constructor() {
     effect(() => {
-      const { theme } = this._hwService.settings()
+      const { theme } = this._userSettingsService.settings()
       theme === 'dark'
         ? document.documentElement.classList.add('dark')
         : document.documentElement.classList.remove('dark')
@@ -38,11 +40,12 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this._userSettingsService.loadUserSettings()
     this._hwService.startService()
   }
 
-  handleSubmit(settings: HardwareServiceSettings) {
-    this._hwService.setSettings(settings)
+  handleSubmit(settings: UserSettings) {
+    this._userSettingsService.saveSettings(settings)
     this._hwService.restartService()
   }
 

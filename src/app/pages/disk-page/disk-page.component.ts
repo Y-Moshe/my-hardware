@@ -4,6 +4,7 @@ import { Systeminformation as SI } from 'systeminformation'
 import 'chartjs-adapter-moment'
 
 import { HardwareService } from '@/services/hardware.service'
+import { UserSettingsService } from '@/services/user-settings.service'
 import {
   DiskDrivePreviewComponent,
   DisksUsageChartComponent,
@@ -88,8 +89,9 @@ export class DiskPageComponent implements OnInit {
     return drivesData[idx]
   })
 
-  hwServiceSettings = computed(() => this._hwService.settings())
+  userSettings = computed(() => this._userSettingsService.settings())
   private readonly _hwService = inject(HardwareService)
+  private readonly _userSettingsService = inject(UserSettingsService)
   private readonly _bytesTo = inject(BytesToPipe)
 
   ngOnInit(): void {

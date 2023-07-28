@@ -37,7 +37,7 @@ export interface MemSlotData {
 
 export type AppTheme = 'light' | 'dark'
 
-export interface HardwareServiceSettings {
+export interface UserSettings {
   refreshRate: number
   maxRecords: number
   theme: AppTheme

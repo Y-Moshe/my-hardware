@@ -5,8 +5,8 @@
     <app-cpu-utilization-chart
       [cpuLoad]="cpuStatus()?.load"
       [cpuTemperature]="cpuStatus()?.temperature"
-      [maxRecords]="hwServiceSettings().maxRecords"
-      [theme]="hwServiceSettings().theme" />
+      [maxRecords]="userSettings().maxRecords"
+      [theme]="userSettings().theme" />
 
     <section
       class="flex flex-wrap justify-center gap-x-8 gap-y-4 px-6 py-4 border border-slate-400 dark:border-sky-400 bg-white/10">

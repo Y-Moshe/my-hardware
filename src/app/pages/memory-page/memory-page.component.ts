@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common'
 import { Systeminformation as SI } from 'systeminformation'
 
 import { HardwareService } from '@/services/hardware.service'
+import { UserSettingsService } from '@/services/user-settings.service'
 import {
   MemoryUsageChartComponent,
   InfoTableComponent,
@@ -69,8 +70,9 @@ export class MemoryPageComponent implements OnInit {
     return slotData[idx]
   })
 
-  hwServiceSettings = computed(() => this._hwService.settings())
+  userSettings = computed(() => this._userSettingsService.settings())
   private readonly _hwService = inject(HardwareService)
+  private readonly _userSettingsService = inject(UserSettingsService)
   private readonly _bytesTo = inject(BytesToPipe)
 
   ngOnInit(): void {
