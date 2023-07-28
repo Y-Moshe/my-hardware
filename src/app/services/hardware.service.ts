@@ -21,8 +21,7 @@ export class HardwareService {
   settings = signal<HardwareServiceSettings>({
     refreshRate: 1000,
     maxRecords: 60,
-    randomizeCpuTemperature: false,
-    theme: 'dark'
+    theme: 'dark',
   })
   isServiceRunning = signal<boolean>(false)
   intervalId: NodeJS.Timer | null = null

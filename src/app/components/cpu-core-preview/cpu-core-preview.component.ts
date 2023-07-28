@@ -13,7 +13,6 @@ export class CpuCorePreviewComponent {
   @Input() load: number = 0
   @Input() speed: number = 0
   @Input() temperature: number = 0
-  @Input() animate: boolean = true
 
   get label() {
     return `${this.speed}GHz ${this.temperature ? this.temperature + '°C' : ''}`

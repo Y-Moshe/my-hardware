@@ -136,8 +136,6 @@ export class CpuUtilizationChartComponent implements OnChanges {
 
   @Input() theme: AppTheme = 'dark'
   @Input() maxRecords: number = 60
-  @Input() animate: boolean = true
-  @Input() randomizeCpuTemperature: boolean = false
   @Input({ required: true }) cpuLoad: SI.CurrentLoadData | null | undefined =
     null
   @Input({ required: true }) cpuTemperature:
@@ -190,13 +188,7 @@ export class CpuUtilizationChartComponent implements OnChanges {
 
       // Pushing the new data values
       utilizationData.push({ x: currentTime, y: currentLoad.currentLoad })
-      temperatureData.push({
-        x: currentTime,
-        // Use randomizeCpuTemperature in case the temperatures are not available and only if enabled (for demo purposes)
-        y: this.randomizeCpuTemperature
-          ? Math.random() * 100
-          : currentTemp.main,
-      })
+      temperatureData.push({ x: currentTime, y: currentTemp.main })
 
       if (this.chart.data.labels) {
         const labelsData = this.chart.data.labels
@@ -204,7 +196,7 @@ export class CpuUtilizationChartComponent implements OnChanges {
         labelsData.push(currentTime)
       }
 
-      this.chart.update(this.animate ? '' : 'none')
+      this.chart.update('none')
     }
   }
 
@@ -217,7 +209,7 @@ export class CpuUtilizationChartComponent implements OnChanges {
       this.chart.data.datasets[1].data = temperatureData
       this.chart.data.labels = labelsData
 
-      this.chart.update(this.animate ? '' : 'none')
+      this.chart.update('none')
     }
   }
 

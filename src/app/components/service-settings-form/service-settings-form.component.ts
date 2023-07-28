@@ -35,11 +35,23 @@ export class ServiceSettingsFormComponent implements OnInit {
     return this.isServiceRunning ? 'Stop service' : 'Start service'
   }
 
+  get activeClass() {
+    return {
+      active: this.isServiceRunning,
+    }
+  }
+
+  activeServiceClasses(includeAnimate: boolean) {
+    return {
+      [this.isServiceRunning ? 'bg-green-500' : 'bg-slate-500']: true,
+      'animate-ping': this.isServiceRunning && includeAnimate,
+    }
+  }
+
   private readonly _fb = inject(FormBuilder)
 
   ngOnInit(): void {
-    const { refreshRate, maxRecords, randomizeCpuTemperature, theme } =
-      this.settings
+    const { refreshRate, maxRecords, theme } = this.settings
 
     this.form = this._fb.group({
       refreshRate: this._fb.control(refreshRate, [
@@ -50,9 +62,13 @@ export class ServiceSettingsFormComponent implements OnInit {
         Validators.required,
         Validators.min(10),
       ]),
-      randomizeCpuTemperature: this._fb.control(randomizeCpuTemperature),
       theme: this._fb.control(theme),
     })
+  }
+
+  hasError(fieldName: string, errorName: string) {
+    const ctrl = this.form.get(fieldName)
+    return ctrl?.touched && ctrl?.hasError(errorName)
   }
 
   handleSubmit() {

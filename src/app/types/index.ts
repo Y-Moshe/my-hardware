@@ -40,6 +40,5 @@ export type AppTheme = 'light' | 'dark'
 export interface HardwareServiceSettings {
   refreshRate: number
   maxRecords: number
-  randomizeCpuTemperature: boolean
   theme: AppTheme
 }

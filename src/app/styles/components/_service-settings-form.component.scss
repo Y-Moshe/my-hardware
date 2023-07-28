@@ -1,0 +1,50 @@
+.service-settings-form {
+  @apply px-4 py-2 mt-4;
+  @apply border border-slate-400 dark:border-sky-400;
+  @apply shadow shadow-green-300 bg-white/10;
+
+  .form-control {
+    @apply flex flex-col gap-2;
+    @apply dark:text-blue-100;
+
+    span {
+      @apply text-xs text-slate-400;
+    }
+  }
+
+  .error {
+    @apply bg-red-300 text-red-500 pl-2 border-l-4 border-red-500 inline-block;
+  }
+
+  .form-input {
+    @apply w-[200px] py-1 px-2 bg-white/20;
+    @apply border border-sky-400;
+  }
+
+  .save-btn,
+  .service-btn {
+    @apply px-2 py-1 shadow-lg;
+    @apply border rounded;
+    @apply dark:bg-white/10;
+    @apply text-center;
+  }
+
+  .save-btn:active,
+  .service-btn:active {
+    @apply bg-slate-200 dark:bg-slate-500;
+  }
+
+  .save-btn {
+    @apply text-green-400;
+    @apply border-green-500 dark:border-slate-600;
+  }
+
+  .service-btn {
+    @apply flex items-center gap-2;
+
+    @apply text-sky-400 border-sky-500 dark:border-slate-600;
+    &.active {
+      @apply text-orange-400 border-orange-500 dark:border-slate-600;
+    }
+  }
+}

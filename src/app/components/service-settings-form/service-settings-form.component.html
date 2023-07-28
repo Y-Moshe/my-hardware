@@ -1,24 +1,79 @@
-<form class="service-settings" [formGroup]="form" (ngSubmit)="handleSubmit()">
-  <label for="refreshRate">Refresh Rate</label>
-  <input type="number" formControlName="refreshRate" id="refreshRate" />
+<form
+  class="service-settings-form"
+  [formGroup]="form"
+  (ngSubmit)="handleSubmit()">
+  <div class="grid grid-cols-3 gap-2">
+    <!-- Refresh Rate input -->
+    <div class="form-control">
+      <label for="refreshRate">Refresh Rate</label>
+      <input
+        type="number"
+        formControlName="refreshRate"
+        id="refreshRate"
+        class="form-input" />
+      <span class="hint"> Set the refresh rate (interval) in milliseconds</span>
 
-  <label for="maxRecords">Max Records</label>
-  <input type="number" formControlName="maxRecords" id="maxRecords" />
+      <!-- Errors -->
+      <small class="error" *ngIf="hasError('refreshRate', 'required')"
+        >The field is required!</small
+      >
+      <small class="error" *ngIf="hasError('refreshRate', 'min')"
+        >Require minimum of 500, anything below is not recommended and
+        supported!</small
+      >
+    </div>
 
-  <label for="theme">Theme</label>
-  <select formControlName="theme" id="theme">
-    <option value="light">Light</option>
-    <option value="dark">Dark</option>
-  </select>
+    <!-- Max Records input -->
+    <div class="form-control">
+      <label for="maxRecords">Max Records</label>
+      <input
+        type="number"
+        formControlName="maxRecords"
+        id="maxRecords"
+        class="form-input" />
+      <span class="hint">
+        The maximum number of records to display in cpu page
+      </span>
 
-  <label for="randomizeCpuTemperature">Randomize Cpu Temperature</label>
-  <input
-    type="checkbox"
-    formControlName="randomizeCpuTemperature"
-    id="randomizeCpuTemperature" />
+      <!-- Errors -->
+      <small class="error" *ngIf="hasError('maxRecords', 'required')"
+        >The field is required!</small
+      >
+      <small class="error" *ngIf="hasError('maxRecords', 'min')"
+        >Require minimum of 10 records!</small
+      >
+    </div>
 
-  <button type="submit">Apply Settings</button>
-  <button type="button" (click)="onToggleService.emit()">
-    {{ toggledLabel }}
-  </button>
+    <!-- Theme select -->
+    <div class="form-control">
+      <label for="theme">Theme</label>
+      <select formControlName="theme" id="theme" class="form-input">
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+      </select>
+      <span class="hint"> Application theme (Dark/Light) </span>
+    </div>
+  </div>
+
+  <!-- Buttons -->
+  <div class="flex justify-center gap-4 mt-2">
+    <button type="submit" class="save-btn">Save & Apply</button>
+    <button
+      type="button"
+      class="service-btn"
+      (click)="onToggleService.emit()"
+      [ngClass]="activeClass">
+      <span class="relative flex h-3 w-3">
+        <span
+          class="absolute inline-flex h-full w-full rounded-full opacity-75"
+          [ngClass]="activeServiceClasses(true)"></span>
+        <span
+          class="relative inline-flex rounded-full h-3 w-3"
+          [ngClass]="activeServiceClasses(false)"></span>
+      </span>
+      <span>
+        {{ toggledLabel }}
+      </span>
+    </button>
+  </div>
 </form>
