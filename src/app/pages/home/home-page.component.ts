@@ -14,5 +14,8 @@ import { DiskPageComponent } from '../disk-page/disk-page.component'
     DiskPageComponent,
   ],
   templateUrl: './home-page.component.html',
+  host: {
+    class: 'main-layout full',
+  },
 })
 export class HomePageComponent {}
