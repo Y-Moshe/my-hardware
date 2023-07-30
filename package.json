@@ -9,7 +9,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "start": "concurrently -k \"ng serve\" \"npm run electron\"",
-    "electron": "wait-on http://localhost:4200 && electron .",
+    "electron": "wait-on http://localhost:4200 && set IS_DEV=1 && electron .",
     "forage-start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",

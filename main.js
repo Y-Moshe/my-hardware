@@ -9,7 +9,7 @@ function createAppWindow() {
     maxWidth: 1024,
     height: 800,
     minHeight: 800,
-    // autoHideMenuBar: true,
+    autoHideMenuBar: !process.env?.IS_DEV,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -18,9 +18,10 @@ function createAppWindow() {
     },
   })
 
-  // const { outputPath } = projects["my-hardware"].architect.build.options;
-  // appWindow.loadFile(`${outputPath}/index.html`);
-  appWindow.loadURL('http://localhost:4200')
+  const { outputPath } = projects['my-hardware'].architect.build.options
+  process.env?.IS_DEV
+    ? appWindow.loadURL('http://localhost:4200') // For Development
+    : appWindow.loadFile(`${outputPath}/index.html`) // For Production
 }
 
 app.on('window-all-closed', () => {
