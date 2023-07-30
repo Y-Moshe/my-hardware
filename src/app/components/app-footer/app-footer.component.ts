@@ -1,5 +1,6 @@
-import { Component } from '@angular/core'
+import { Component, inject } from '@angular/core'
 import { CommonModule } from '@angular/common'
+import { HardwareService } from '@/services/hardware.service'
 
 @Component({
   selector: 'app-footer',
@@ -7,4 +8,11 @@ import { CommonModule } from '@angular/common'
   imports: [CommonModule],
   templateUrl: './app-footer.component.html',
 })
-export class AppFooterComponent {}
+export class AppFooterComponent {
+  private readonly _hwService = inject(HardwareService)
+
+  openLinkedIn(e: MouseEvent) {
+    e.preventDefault()
+    this._hwService.openLinkedIn()
+  }
+}

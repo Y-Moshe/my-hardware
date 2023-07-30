@@ -62,6 +62,10 @@ export class HardwareService {
     this.startService()
   }
 
+  public openLinkedIn(): Promise<any> {
+    return this._electronService.ipcRenderer.invoke('openLinkedIn')
+  }
+
   public getCpuData(): Promise<SI.CpuData> {
     return this._electronService.ipcRenderer.invoke('getCpuData')
   }

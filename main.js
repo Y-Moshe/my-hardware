@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { app, BrowserWindow, ipcMain, shell } = require('electron')
 const si = require('systeminformation')
 const { projects } = require('./angular.json')
 
@@ -38,6 +38,10 @@ app.whenReady().then(() => {
 })
 
 // ----------------------------------------------------------------
+
+ipcMain.handle('openLinkedIn', () =>
+  shell.openExternal('https://www.linkedin.com/in/moshe-nehemiah-254506155/')
+)
 
 ipcMain.handle('getCpuData', () => si.cpu())
 ipcMain.handle('getMemoryLayout', () => si.memLayout())
