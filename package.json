@@ -1,6 +1,6 @@
 {
   "name": "my-hardware",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "main": "main.js",
   "author": "Moshe Nehemiah",
   "description": "My hardware, a monitor application for your CPU, Memory, and Disk usage.",
