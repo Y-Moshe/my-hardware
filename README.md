@@ -1,27 +1,30 @@
-# MyHardware
+# My Hardware
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.3.
+![My hardware](https://res.cloudinary.com/dgczimxpo/image/upload/v1690814663/my-hardware/1_o8yulx.png)
 
-## Development server
+Presenting a cross-platform desktop app build with the [Electron](https://www.electronjs.org/) framework and [Angular](https://angular.io/) v16 with Signals.  
+The application offers stunning UI/UX Charts for real-time monitoring of CPU, Memory, and Disk usage.  
+With Tailwindcss, it seamlessly switches between **Light** and **Dark** modes, providing a delightful user experience.  
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Under the hood, the app uses the **"systeminformation"** npm package to access essential system details and with the usage of the **ipcMain** and **ipcRenderer**, of the Electron framework, enabling smooth and efficient communication within the application.  
 
-## Code scaffolding
+## Downloads
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Supported platforms: **Linux**, **Windows**.
+- Go to releases page and download the latest package: [Releases](https://github.com/Y-Moshe/my-hardware/releases).
 
-## Build
+### CPU
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+![CPU](https://res.cloudinary.com/dgczimxpo/image/upload/v1690814664/my-hardware/2_kiiv65.png)
 
-## Running unit tests
+### Memory
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+![Memory](https://res.cloudinary.com/dgczimxpo/image/upload/v1690814664/my-hardware/3_onp80e.png)
 
-## Running end-to-end tests
+### Disks
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+![Disks](https://res.cloudinary.com/dgczimxpo/image/upload/v1690814664/my-hardware/4_blai2r.png)
 
-## Further help
+### License
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+My Hardware is a project that created for educational purposes only and it's not intended for commercial use.
